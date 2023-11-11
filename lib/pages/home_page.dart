@@ -45,67 +45,76 @@ class _HomePageState extends State<HomePage> {
   box.put('codelist', employeeList);
 }
 
+  Future<bool> _onWillPop() async {
+    Navigator.of(context).pushReplacementNamed('/loginpage');
+    return false;
+  }
+
+
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text("HOME PAGE"),
-        automaticallyImplyLeading: false,
-        leading: IconButton(
-          icon: const Icon(Icons.logout),
-          onPressed: () {
-            Navigator.pushNamed(context, '/loginpage');
-          },
-        ),
-        actions: [
-          IconButton(
-            onPressed: (){
-              removeSelectedRows();
+    return WillPopScope(
+      onWillPop: _onWillPop,
+      child: Scaffold(
+        appBar: AppBar(
+          title: Text("HOME PAGE"),
+          automaticallyImplyLeading: false,
+          leading: IconButton(
+            icon: const Icon(Icons.logout),
+            onPressed: () {
+              Navigator.pushNamed(context, '/loginpage');
             },
-            icon: Icon(Icons.remove),
-          )
-        ],
-      ),
-
-      body: Padding(
-        padding: const EdgeInsets.all(25.0),
-        child: Center(
-          child: DataTable(
-            showCheckboxColumn: true,
-            columns: [
-              DataColumn(label: Text("code")),
-              DataColumn(label: Text("description")),
-            ],
-            rows: employeeList.asMap().entries.map<DataRow>((entry) {
-              int index = entry.key;
-              var item = entry.value;
-              return DataRow(
-                selected: selected[index],
-                onSelectChanged: (bool? value) {
-                  if (value != null) {
-                    setState(() {
-                      selected[index] = value;
-                    });
-                    print(selected);
-                  }
-                },
-                cells: <DataCell>[
-                  DataCell(Text(item[0])),
-                  DataCell(Text(item[1])),
-                ],
-              );
-            }).toList(),
           ),
-        )
+          actions: [
+            IconButton(
+              onPressed: (){
+                removeSelectedRows();
+              },
+              icon: Icon(Icons.remove),
+            )
+          ],
+        ),
+    
+        body: Padding(
+          padding: const EdgeInsets.all(25.0),
+          child: Center(
+            child: DataTable(
+              showCheckboxColumn: true,
+              columns: [
+                DataColumn(label: Text("code")),
+                DataColumn(label: Text("description")),
+              ],
+              rows: employeeList.asMap().entries.map<DataRow>((entry) {
+                int index = entry.key;
+                var item = entry.value;
+                return DataRow(
+                  selected: selected[index],
+                  onSelectChanged: (bool? value) {
+                    if (value != null) {
+                      setState(() {
+                        selected[index] = value;
+                      });
+                      print(selected);
+                    }
+                  },
+                  cells: <DataCell>[
+                    DataCell(Text(item[0])),
+                    DataCell(Text(item[1])),
+                  ],
+                );
+              }).toList(),
+            ),
+          )
+        ),
+    
+        floatingActionButton: FloatingActionButton(
+          onPressed: () {
+            Navigator.pushNamed(context, '/detailspage');
+          },
+          child: Icon(Icons.add),
+        ),
+    
       ),
-
-      floatingActionButton: FloatingActionButton(
-        onPressed: () {
-          Navigator.pushNamed(context, '/detailspage');
-        },
-        child: Icon(Icons.add),
-      ),
-
     );
   }
 }

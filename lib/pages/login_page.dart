@@ -82,108 +82,116 @@ class _LoginPageState extends State<LoginPage> {
       );
   }
 
+  Future<bool> _onWillPop() async {
+    exitApp();
+    return false;
+  }
+
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text('Login Page'),
-        automaticallyImplyLeading: false,
-      ),
-
-      body: Padding(
-          padding: const EdgeInsets.all(25.0),
-          child: Column(
-            //mainAxisAlignment: MainAxisAlignment.center,
-            //mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Container(
-                width: 300.0,
-                padding: EdgeInsets.only(top: 40),
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(200),
-                ),
-                child: Center(
-                  child: Image.asset('images/kono-suba-anime.gif'),
-                ),
-              ),
-        
-              Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: TextField(
-                  //the input
-                  controller: _usernameController,
-                  //decoration
-                  decoration: InputDecoration(
-                    border: OutlineInputBorder(),
-                      
-                    //greyed out text
-                    hintText: "Enter username..",
-                  ),
-                ),
-              ),
-        
-              Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: TextField(
-                  //the input
-                  controller: _passwordController,
-                  obscureText: _obscureText,
-                  //decoration
-                  decoration: InputDecoration(
-                    border: OutlineInputBorder(),
-                    
-                    //greyed out text
-                    hintText: "Enter password..",
-
-                    suffixIcon: IconButton(
-                      icon: Icon(
-                        _obscureText ? Icons.visibility_off : Icons.visibility,
-                        color: Colors.grey,
-                      ),
-                      onPressed: () {
-                        setState(() {
-                          _obscureText = !_obscureText;
-                        });
-                      },
-                    ),
-                      
-
-                  ),
-                ),
-              ),
-        
-              Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.end,
-                  children: [
-                    Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: ElevatedButton(
-                        style: ElevatedButton.styleFrom(
-                          minimumSize: Size(100, 50),
-                          backgroundColor: Colors.black87,
-                        ),
-                        onPressed: loginUser, child: Text("Login")
-                      ),
-                    ),
-
-                    Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: ElevatedButton(
-                        style: ElevatedButton.styleFrom(
-                          minimumSize: Size(100, 50),
-                          backgroundColor: Colors.black87,
-                        ),
-                        onPressed: exitApp, child: Text("Cancel")
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-            ],
-          ),
+    return WillPopScope(
+      onWillPop: _onWillPop,
+      child: Scaffold(
+        appBar: AppBar(
+          title: Text('Login Page'),
+          automaticallyImplyLeading: false,
         ),
+    
+        body: Padding(
+            padding: const EdgeInsets.all(25.0),
+            child: Column(
+              //mainAxisAlignment: MainAxisAlignment.center,
+              //mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Container(
+                  width: 300.0,
+                  padding: EdgeInsets.only(top: 40),
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(200),
+                  ),
+                  child: Center(
+                    child: Image.asset('images/kono-suba-anime.gif'),
+                  ),
+                ),
+          
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: TextField(
+                    //the input
+                    controller: _usernameController,
+                    //decoration
+                    decoration: InputDecoration(
+                      border: OutlineInputBorder(),
+                        
+                      //greyed out text
+                      hintText: "Enter username..",
+                    ),
+                  ),
+                ),
+          
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: TextField(
+                    //the input
+                    controller: _passwordController,
+                    obscureText: _obscureText,
+                    //decoration
+                    decoration: InputDecoration(
+                      border: OutlineInputBorder(),
+                      
+                      //greyed out text
+                      hintText: "Enter password..",
+    
+                      suffixIcon: IconButton(
+                        icon: Icon(
+                          _obscureText ? Icons.visibility_off : Icons.visibility,
+                          color: Colors.grey,
+                        ),
+                        onPressed: () {
+                          setState(() {
+                            _obscureText = !_obscureText;
+                          });
+                        },
+                      ),
+                        
+    
+                    ),
+                  ),
+                ),
+          
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.end,
+                    children: [
+                      Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: ElevatedButton(
+                          style: ElevatedButton.styleFrom(
+                            minimumSize: Size(100, 50),
+                            backgroundColor: Colors.black87,
+                          ),
+                          onPressed: loginUser, child: Text("Login")
+                        ),
+                      ),
+    
+                      Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: ElevatedButton(
+                          style: ElevatedButton.styleFrom(
+                            minimumSize: Size(100, 50),
+                            backgroundColor: Colors.black87,
+                          ),
+                          onPressed: exitApp, child: Text("Cancel")
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ],
+            ),
+          ),
+      ),
     );
   }
 }

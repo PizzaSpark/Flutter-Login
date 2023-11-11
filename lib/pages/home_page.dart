@@ -15,6 +15,7 @@ class _HomePageState extends State<HomePage> {
   final box = Hive.box();
   //get the list that specifies only lists that contains strings so in other words its a 2d array
   List employeeList = [];
+  List<bool> selected = [];
 
   @override
   void initState() {
@@ -22,13 +23,27 @@ class _HomePageState extends State<HomePage> {
 
     if (box.get('codelist') == null) {
       box.put("codelist", [
-        ['8135163','uwu']
+        ['0','lorem ipsum']
       ]);
     }
   
     employeeList = box.get('codelist');
+    selected = List<bool>.from(List<bool>.filled(employeeList.length, false));
     print(employeeList);
   }
+
+  void removeSelectedRows() {
+  setState(() {
+    var indicesToRemove = selected.asMap().entries.where((entry) => entry.value).map((entry) => entry.key).toList();
+    indicesToRemove.sort((a, b) => b.compareTo(a)); // sort in descending order
+    for (var index in indicesToRemove) {
+      employeeList.removeAt(index);
+      selected.removeAt(index);
+    }
+  });
+
+  box.put('codelist', employeeList);
+}
 
   @override
   Widget build(BuildContext context) {
@@ -45,9 +60,9 @@ class _HomePageState extends State<HomePage> {
         actions: [
           IconButton(
             onPressed: (){
-              Navigator.pushNamed(context, '/detailspage');
+              removeSelectedRows();
             },
-            icon: Icon(Icons.add),
+            icon: Icon(Icons.remove),
           )
         ],
       ),
@@ -61,8 +76,19 @@ class _HomePageState extends State<HomePage> {
               DataColumn(label: Text("code")),
               DataColumn(label: Text("description")),
             ],
-            rows: employeeList.map<DataRow>((item) {
+            rows: employeeList.asMap().entries.map<DataRow>((entry) {
+              int index = entry.key;
+              var item = entry.value;
               return DataRow(
+                selected: selected[index],
+                onSelectChanged: (bool? value) {
+                  if (value != null) {
+                    setState(() {
+                      selected[index] = value;
+                    });
+                    print(selected);
+                  }
+                },
                 cells: <DataCell>[
                   DataCell(Text(item[0])),
                   DataCell(Text(item[1])),
@@ -72,6 +98,14 @@ class _HomePageState extends State<HomePage> {
           ),
         )
       ),
+
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {
+          Navigator.pushNamed(context, '/detailspage');
+        },
+        child: Icon(Icons.add),
+      ),
+
     );
   }
 }

@@ -1,6 +1,7 @@
 // ignore_for_file: prefer_const_constructors, prefer_final_fields
 
 import 'package:flutter/material.dart';
+import 'package:hive/hive.dart';
 
 class DetailsPage extends StatefulWidget {
   const DetailsPage({super.key});
@@ -16,7 +17,7 @@ class _DetailsPageState extends State<DetailsPage> {
   TextEditingController _codeController = TextEditingController();
   TextEditingController _descriptionController = TextEditingController();
 
-  List<List<String>> employeeList = [];
+  final box = Hive.box();
 
   @override
   Widget build(BuildContext context) {
@@ -65,7 +66,12 @@ class _DetailsPageState extends State<DetailsPage> {
 
       floatingActionButton: FloatingActionButton(
         onPressed: () {
-          Navigator.pushNamed(context, '/detailspage');
+
+          List<String> employeeCodes = [_codeController.text, _descriptionController.text];
+          List employeeList = box.get('codelist');
+          employeeList.add(employeeCodes);
+          box.put('codelist', employeeList);
+          Navigator.pushNamed(context, '/homepage');
         },
         child: Icon(Icons.add),
       ),

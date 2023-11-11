@@ -1,6 +1,7 @@
 // ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables, prefer_final_fields
 
 import 'package:flutter/material.dart';
+import 'package:hive/hive.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -11,10 +12,23 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
 
+  final box = Hive.box();
   //get the list that specifies only lists that contains strings so in other words its a 2d array
-  List<List<String>> employeeList = [];
+  List employeeList = [];
 
+  @override
+  void initState() {
+    super.initState();
 
+    if (box.get('codelist') == null) {
+      box.put("codelist", [
+        ['8135163','uwu']
+      ]);
+    }
+  
+    employeeList = box.get('codelist');
+    print(employeeList);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -44,25 +58,17 @@ class _HomePageState extends State<HomePage> {
           child: DataTable(
             showCheckboxColumn: true,
             columns: [
-              DataColumn(label: Text("YES")),
-              DataColumn(label: Text("YES")),
-              DataColumn(label: Text("YES")),
+              DataColumn(label: Text("code")),
+              DataColumn(label: Text("description")),
             ],
-            rows: [
-              DataRow(cells: [
-                DataCell(Text("uwu")),
-                DataCell(Text("uwu")),
-                DataCell(Text("uwu")),
-              ]
-              ),
-        
-              DataRow(cells: [
-                DataCell(Text("uwu")),
-                DataCell(Text("uwu")),
-                DataCell(Text("uwu")),
-              ]
-              ),
-            ],
+            rows: employeeList.map<DataRow>((item) {
+              return DataRow(
+                cells: <DataCell>[
+                  DataCell(Text(item[0])),
+                  DataCell(Text(item[1])),
+                ],
+              );
+            }).toList(),
           ),
         )
       ),

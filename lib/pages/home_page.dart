@@ -11,6 +11,7 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
 
+  //get the list that specifies only lists that contains strings so in other words its a 2d array
   List<List<String>> employeeList = [];
 
 

@@ -16,6 +16,8 @@ class _DetailsPageState extends State<DetailsPage> {
   TextEditingController _codeController = TextEditingController();
   TextEditingController _descriptionController = TextEditingController();
 
+  List<List<String>> employeeList = [];
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(

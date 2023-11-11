@@ -161,7 +161,7 @@ class _LoginPageState extends State<LoginPage> {
                       padding: const EdgeInsets.all(8.0),
                       child: ElevatedButton(
                         style: ElevatedButton.styleFrom(
-                          minimumSize: Size(200, 50),
+                          minimumSize: Size(100, 50),
                           backgroundColor: Colors.black87,
                         ),
                         onPressed: loginUser, child: Text("Login")
@@ -172,7 +172,7 @@ class _LoginPageState extends State<LoginPage> {
                       padding: const EdgeInsets.all(8.0),
                       child: ElevatedButton(
                         style: ElevatedButton.styleFrom(
-                          minimumSize: Size(200, 50),
+                          minimumSize: Size(100, 50),
                           backgroundColor: Colors.black87,
                         ),
                         onPressed: exitApp, child: Text("Cancel")

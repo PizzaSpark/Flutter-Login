@@ -29,7 +29,6 @@ class _HomePageState extends State<HomePage> {
   
     employeeList = box.get('codelist');
     selected = List<bool>.from(List<bool>.filled(employeeList.length, false));
-    print(employeeList);
   }
 
   void removeSelectedRows() {
@@ -94,7 +93,6 @@ class _HomePageState extends State<HomePage> {
                       setState(() {
                         selected[index] = value;
                       });
-                      print(selected);
                     }
                   },
                   cells: <DataCell>[

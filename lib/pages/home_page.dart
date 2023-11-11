@@ -12,11 +12,7 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
 
-  List employeeList = [
-    ["8005451213","Sean", false],
-    ["005652","Geon", false],
-    ["987510","Eric", false],
-  ];
+  List employeeList = [];
 
 
 

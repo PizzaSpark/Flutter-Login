@@ -12,6 +12,7 @@ dependencies:
   cupertino_icons: ^1.0.6
   flutter:
     sdk: flutter
+  flutter_launcher_icons: ^0.13.1
   hive: ^4.0.0-dev.2
   isar_flutter_libs: ^4.0.0-dev.13
   path_provider: ^2.1.0
@@ -25,3 +26,8 @@ flutter:
   assets:
     - images/
   uses-material-design: true
+
+flutter_launcher_icons:
+  android: true
+  ios: true
+  image_path: "images/rushia.png"
